@@ -23,6 +23,10 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/admin', function () {
+    return view('layout.admin_student');
+});
+
 Route::get('/students', function () {
 	//su dung query builder
 	//lay ra mang students
