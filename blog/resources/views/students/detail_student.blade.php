@@ -17,7 +17,7 @@
     
   </thead>
   <tbody>
-    @foreach($studentObj as $key)
+    @foreach($studentObj as $key )
    
     <tr>
       <td>{{ $studentObj->id }}</td>
