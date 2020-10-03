@@ -2,8 +2,8 @@
 @extends('layout.master')
 
 <!-- Thay doi noi dung rieng ung voi @yield('title') ben master -->
-@section('title', 'Test layout adminLTE')
-
+@section('title', ' 1 student ')
+@section('ha','của em nó ra 4 bản ghi cùng một đối tượng id truyền vào')
 <!-- Thay doi noi dung rieng ung voi @yield('content') ben master -->
 @section('content')
 <!-- Content Wrapper. Contains page content -->
@@ -17,13 +17,14 @@
     
   </thead>
   <tbody>
-    @foreach($studentList as $student)
+    @foreach($studentObj as $value)
+   
     <tr>
-      <td>{{ $student->id }}</td>
-      <td>{{ $student->name }}</td>
-      <td>{{ $student->phone }}</td>
-      <td>{{ $student->age }}</td>
-      <td>{{$student->gender==0?"nu":"nam"}}</td>
+      <td>{{ $studentObj->id }}</td>
+      <td>{{ $studentObj->name }}</td>
+      <td>{{ $studentObj->phone }}</td>
+      <td>{{ $studentObj->age }}</td>
+      <td>{{$studentObj->gender==0?"nu":"nam"}}</td>
       
     </tr>
     @endforeach

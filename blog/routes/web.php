@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
+use App\Http\Controllers\StudentController;
+use App\Http\Controllers\SubjectController;
 
 
 
@@ -24,8 +26,15 @@ Route::get('/', function () {
 });
 
 Route::get('/admin', function () {
-    return view('layout.admin_student');
-});
+    $student = DB::table('students')->orderBy('id', 'asc')->get();
+    $null="khong co loi gi - chao anh Ha dep trai";
+
+    return view('layout.admin_student', [
+        'studentList' => $student ,
+        'err'=>$null
+    ]);
+})->name('admin_student');
+
 
 Route::get('/students', function () {
 	//su dung query builder
@@ -82,3 +91,8 @@ Route::post('/post_login', function (Request $request) {
     	return redirect()->route('get_login');
     }
 })->name('post_login');
+
+
+
+Route::resource('students', StudentController::class);
+Route::get('subjects', [SubjectController::class, 'index'])->name('subjects.index');
