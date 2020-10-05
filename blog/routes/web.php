@@ -2,8 +2,6 @@
 
 use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
-use App\Http\Controllers\StudentController;
-use App\Http\Controllers\SubjectController;
 
 
 
@@ -26,19 +24,12 @@ Route::get('/', function () {
 });
 
 Route::get('/admin', function () {
-    $student = DB::table('students')->orderBy('id', 'asc')->get();
-    $null="khong co loi gi - chao anh Ha dep trai";
-
-    return view('layout.admin_student', [
-        'studentList' => $student ,
-        'err'=>$null
-    ]);
-})->name('admin_student');
-
+    return view('layout.admin_student');
+});
 
 Route::get('/students', function () {
-	//su dung query builder
-	//lay ra mang students
+    //su dung query builder
+    //lay ra mang students
    // return DB::table('students')->get();
     //lay ra 1 students
    //  return DB::table('students')->where('id', '=', 2)->get();
@@ -48,12 +39,12 @@ return view('students.detail', ['studentValue' => $student ]);
 });
 
 Route::get('/student_list', function () {
-	$student = DB::table('students')->orderBy('id', 'asc')->get();
-	$null="khong co loi gi - chao anh Ha dep trai";
+    $student = DB::table('students')->orderBy('id', 'asc')->get();
+    $null="khong co loi gi - chao anh Ha dep trai";
 
     return view('students.list', [
-    	'studentList' => $student ,
-    	'err'=>$null
+        'studentList' => $student ,
+        'err'=>$null
     ]);
 })->name('list_student');
 
@@ -79,20 +70,15 @@ Route::get('/login', function () {
 })->name('get_login');
 
 Route::post('/post_login', function (Request $request) {
-	//xu ly logic, truy van...
+    //xu ly logic, truy van...
   
     $name= $request->name;
 
     $student=DB::table('students')->where('name', 'like', "%$name%")->first();
 
     if($student){
-		return redirect()->route('list_student');
+        return redirect()->route('list_student');
     }else{
-    	return redirect()->route('get_login');
+        return redirect()->route('get_login');
     }
 })->name('post_login');
-
-
-
-Route::resource('students', StudentController::class);
-Route::get('subjects', [SubjectController::class, 'index'])->name('subjects.index');
