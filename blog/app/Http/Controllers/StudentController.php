@@ -13,10 +13,12 @@ class StudentController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    // index() su dung phuong thuc GET, route name la students.index
     public function index()
     {
-        $students= Student::all();//lay het
-        //$student = Student::orderBy('id', 'desc')->get();
+        $students = Student::all(); //lay ra het
+        // hoac $students = Student::orderBy('id', 'desc')->get();
+
         return view('layout.admin_student', ['studentList' => $students]);
     }
 
@@ -25,9 +27,10 @@ class StudentController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    // create() su dung phuong thuc GET, route name la students.create
+    public function create(Student $student)
     {
-        dd('Students Controller create');
+       return view('students.add_new', ['add_student' =>$student]);
     }
 
     /**
@@ -38,7 +41,15 @@ class StudentController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $student = new Student;
+
+        $student->name = $request->name;
+        $student->phone = $request->phone;
+        $student->age = $request->age;
+        $student->gender = $request->gender;
+        // ....
+        $student->save();
+        return redirect()->route('students.index');
     }
 
     /**
@@ -47,21 +58,18 @@ class StudentController extends Controller
      * @param  \App\Models\Student  $student
      * @return \Illuminate\Http\Response
      */
+    // show su dung phuong thuc GET, route name la students.show
     public function show(Student $student)
-
     {
-       
-        //neu chi truyen vao $student -.nhan duoc id cua student
-        $studentObjEloquentModel = Student::find($student);
-        $studentObjQueryBuilder = DB::table('students')->find($student);
-       
+        // // Neu chi truyen vao $student -> nhan duoc id cua Student
+        // $studentObjEloquentModel = Student::find($student);
+        // $studentObjQueryBuilder = DB::table('students')->find($student);
+        // dd($studentObjEloquentModel->name, $studentObjQueryBuilder->name);
 
-        
+        // // Neu truyen Student $student -> thuc hien truy van tim Student co id = $student
+        // $studentObj = $student;
 
-        //neu truyen vao Student $student -> thuc hien truy van tim Student co id = $student
-        $studentObj = $student;
-
-         return view('students.detail_student', ['studentObj' => $studentObj]);
+        return view('students.detail_student', ['studentObj' => $student]);
     }
 
     /**
@@ -72,7 +80,7 @@ class StudentController extends Controller
      */
     public function edit(Student $student)
     {
-        //
+        return view('students.Edit_student', ['student' => $student]);
     }
 
     /**
@@ -84,7 +92,21 @@ class StudentController extends Controller
      */
     public function update(Request $request, Student $student)
     {
-        //
+        // dd($request->all());
+        // Gan gia tri moi cho cac thuoc tinh cua student can update
+        $student->name = $request->name;
+        $student->phone = $request->phone;
+        $student->age = $request->age;
+        $student->gender = $request->gender;
+
+        // Thuc hien goi phuong thuc save() de luu du lieu
+        $student->save();
+
+        // Cach 2: $student->update(['name' => $request->name]);
+        // Hoac $student->update([$request->all()])
+        // Khong can save
+
+        return redirect()->route('students.index');
     }
 
     /**
@@ -95,6 +117,17 @@ class StudentController extends Controller
      */
     public function destroy(Student $student)
     {
-        //
+        // Kiem tra ton tai sinh vien -> xoa
+        if($student) {
+            $student->delete(); // tra ve ket qua true/false
+        }
+
+        // Cach 2: Student::destroy($student->id); // tra ve so luong ban ghi bi xoa
+        // Redirect ve danh sach (co thuc hien truy van lay ds moi)
+        return redirect()->route('students.index');
     }
 }
+
+
+ 
+

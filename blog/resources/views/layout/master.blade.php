@@ -209,7 +209,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
   </aside>
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
-    <div class="content-header">
+    <div class="content-header"><h2>@yield('ha0108')</h2> 
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
