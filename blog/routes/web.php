@@ -5,6 +5,10 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\SubjectController;
+use App\Http\Controllers\PostController;
+use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\CommentController;
+
 
 // use DB;
 /*
@@ -32,6 +36,15 @@ Route::resource('students', StudentController::class)
 // Tao route cho subject controller khong dung resource
 Route::get('subjects', [SubjectController::class, 'index'])
     ->name('subjects.index');
+
+Route::get('posts', [PostController::class, 'index']);  
+Route::get('categories', [CategoryController::class, 'index']);  
+Route::get('comments', [CommentController::class, 'index']);    
+
+// Route::get('/post', function(){
+//     $post = \App\Models\Post::find(5);
+//     dd($post->comments);
+// })
 
 // Route::get('/students', function () {
 //     // Su dung query builder

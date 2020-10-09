@@ -59,6 +59,8 @@
                   </td>
     </tr>
     @endforeach
+
+    <tr><td colspan="7">{{ $studentList->links() }}</td></tr>
   </tbody>
 </table>
 @endsection

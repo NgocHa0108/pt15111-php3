@@ -5,23 +5,20 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Student extends Model
+class Category extends Model
 {
     use HasFactory;
-
-    protected $table = 'students';
+      protected $table = 'categories';
 
     protected $fillable=[
+    	'parent_id',
     	'name',
-    	'phone',
-    	'age',
-    	'gender',
+    	'status',
+    	
 
     ];
 
-    // function 1 sv cos nhieu bai post
     public function posts(){
-    	return $this->hasMany(Post::class, 'student-id', 'id');
+    	return $this->belongToMany(Post::class, 'category_post ', 'category_id', 'post_id');
     }
 }
- 

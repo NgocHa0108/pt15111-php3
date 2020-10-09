@@ -18,7 +18,7 @@ class StudentController extends Controller
     {
         $students = Student::all(); //lay ra het
         // hoac $students = Student::orderBy('id', 'desc')->get();
-
+        $students = Student::paginate(5);
         return view('layout.admin_student', ['studentList' => $students]);
     }
 
