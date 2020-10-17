@@ -16,6 +16,10 @@
     <th>image_url</th>
     <th>status</th>
     <th>student</th>
+    <th>action  <a href="{{ route('postss.create') }}">
+                      <button>Add new</button>
+                    </a>
+    </th>
     
   </thead>
   <tbody>
@@ -24,8 +28,9 @@
       <td>{{ $post->id }}</td>
       <td>{{ $post->desc }}</td>
       <td>{{ $post->content }}</td>
-      <td><img src="{{ $post->image_url }}"></td>
-      <td>{{ $post->status }}</td>
+
+      <td><img src="{{ substr($post->image_url, 0, 4) == 'http' ? $post->image_url : asset($post->image_url) }}" height="50"></td>
+      <td>{{ $post->status == 1?'co':'khong' }}</td>
        <td>{{ $post->getStudentName()}}</td>
     
      

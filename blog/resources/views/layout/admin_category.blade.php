@@ -25,7 +25,7 @@
       <td>{{ $category->id }}</td>
       <td>{{ $category->parent_id }}</td>
       <td>{{ $category->name }}</td>
-      <td>{{ $category->status }}</td>
+      <td>{{ $category->status==1?'co':'khong' }}</td>
 
      
     

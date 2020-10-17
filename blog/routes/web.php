@@ -8,6 +8,7 @@ use App\Http\Controllers\SubjectController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CommentController;
+use App\Http\Controllers\LoginController;
 
 
 // use DB;
@@ -29,7 +30,7 @@ Route::get('/', function () {
 Route::view('/admin', 'test-admin');
 
 // tao route resource cho student controller
-Route::resource('students', StudentController::class)
+Route::resource('students', StudentController::class)->middleware('auth');
     // ->only(['index']); khi chi dung ham nao do
     // ->except(['create', 'edit']); khi can bo qua ham nao do
 ;
@@ -37,10 +38,19 @@ Route::resource('students', StudentController::class)
 Route::get('subjects', [SubjectController::class, 'index'])
     ->name('subjects.index');
 
-Route::get('posts', [PostController::class, 'index']);  
-Route::get('categories', [CategoryController::class, 'index']);  
-Route::get('comments', [CommentController::class, 'index']);    
+Route::resource('postss', PostController::class);  
+Route::resource('categories', CategoryController::class);  
+Route::resource('comments', CommentController::class);    
 
+Route::get('login', [LoginController::class, 'index'])
+    ->name('get_login');
+
+
+Route::post('post_login', [LoginController::class, 'postLogin'])
+    ->name('post_login');
+
+Route::get('logout', [LoginController::class, 'logout'])
+    ->name('logout');
 // Route::get('/post', function(){
 //     $post = \App\Models\Post::find(5);
 //     dd($post->comments);
@@ -81,24 +91,24 @@ Route::get('comments', [CommentController::class, 'index']);
 // })->name('student-list');
 
 // Chuc nang login + route POST
-Route::get('/login', function() {
-    return view('login');
-})->name('get-login');
+// Route::get('/login', function() {
+//     return view('login');
+// })->name('get-login');
 
-Route::post('/post-login', function(Request $request) {
-    // su dung $request->all() hoac $request->input name
-    $username = $request->username;
+// Route::post('/post-login', function(Request $request) {
+//     // su dung $request->all() hoac $request->input name
+//     $username = $request->username;
 
-    // Thuc hien truy van theo gia tri vua gui len
-    $student = DB::table('students')
-        ->where('name', 'like', "%$username%")
-        ->first();
+//     // Thuc hien truy van theo gia tri vua gui len
+//     $student = DB::table('students')
+//         ->where('name', 'like', "%$username%")
+//         ->first();
 
-    // Neu co student thi se redirect sang student-list
-    if ($student) {
-        return redirect()->route('student-list');
-    }
-    // Neu khong thi quay lai man login
-    return redirect()->route('get-login');
+//     // Neu co student thi se redirect sang student-list
+//     if ($student) {
+//         return redirect()->route('student-list');
+//     }
+//     // Neu khong thi quay lai man login
+//     return redirect()->route('get-login');
 
-})->name('post-login');
+// })->name('post-login');
